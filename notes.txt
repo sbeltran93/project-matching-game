@@ -1,0 +1,59 @@
+USER STORIES
+
+
+
+Define constants -
+* const numbers []
+* const cards or board?
+* cost winning matches
+
+Define variables -
+* Define a variable for the user's choice
+* Define a variable for the player 2 choice
+* Define a variable for the game message - whether they got a match, other players turn, try again, congrats you won, you lost try again, etc.
+* Define a variable for winner
+
+
+Select and save (cache) elements in variables that need to be accessed in the JavaScript code more than once. -
+* numbers
+* cards? board? squares?
+* reset
+* message
+
+
+Add event listeners - use delegated event listeners to listen to multiple elements with a single listener. -
+* Add an event listener to each number used in memory game
+* Add an event listener to each card to on click
+* Add event listener for reset
+* Add event listener for message
+
+
+Invoke the init function used to initialize all state variables. -
+* board
+* turn
+* winner
+
+
+Invoke the primary render function that transfers all state variables to the DOM. -
+* start of game
+* on click
+* reset
+* player turn
+
+
+
+Wait for the user to click on a button. -
+* winning combinations for matches
+
+Update all state variables with the correct values depending on the user’s choice.
+Invoke the primary render function.
+
+
+Wait for the user to click the “Play Again” button. -
+* Invoke the init function to reset all state variables to their initial values.
+* reset user and players choice to nothing ""
+* reset paired matches to nothing (no matches) ""
+* reset cards to flip 
+
+Function -
+* Create a flip function to make cards flip on click
