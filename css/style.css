@@ -1,6 +1,8 @@
 body {
-    background-color: rgb(182, 199, 199);
+    background-color: rgba(12, 12, 12, 0.854);
     text-align: center;
+    color: rgb(250, 246, 246);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .deck {
@@ -18,29 +20,23 @@ body {
 
 .card {
     width: 50%;
-    aspect-ratio: 7/9;
+    height: 65%;
+    /* aspect-ratio: 7/9; */
     border: 1px solid rgb(250, 246, 246);
     border-radius: 5px;
     font-size: 60px;
+    padding-top: 20px;
+    color: rgb(246, 246, 252);
     text-align: center;
     display: flex;
     justify-content: space-around;
-    background-color: rgba(31, 178, 204, 0.508);
+    background-color: rgb(173, 8, 8);
 }
-.front-image {
-    width: 60px;
-    height: 60px;
-}
+/* .div { 
+    font-size: 50px;
+    color: rgba(0, 0, 0, 0);
 
-.card.flipped {
-    transform: rotateY('180deg');
-}
 
-.front,
-.back {
-    backface-visibility: hidden;
-    position: absolute;
-    border-radius: 10px;
-    height: 90%;
-    width: 90%;
-}
+ .div:hover { 
+    color: rgba(0,0,0,1);
+*/
