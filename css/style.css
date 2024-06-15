@@ -15,10 +15,10 @@ body {
 
 .card {
     width: 50%;
-    height: 65%;
+    height: 55%;
     /* aspect-ratio: 7/9; */
     border: 1px solid rgb(250, 246, 246);
-    border-radius: 5px;
+    border-radius: 3px; 
     font-size: 60px;
     padding-top: 20px;
     color: rgb(246, 246, 252);
