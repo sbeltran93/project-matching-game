@@ -21,6 +21,8 @@ const cardsEl = document.querySelectorAll('.card');
 
 const matchCountEl = document.querySelector('.matches')
 
+let matchCountScore = matchCountEl.textContent;
+
 const startButtonEl = document.querySelector('#start')
 
 /*-------------- Functions -------------*/
@@ -30,11 +32,6 @@ display = document.querySelector(".time");
     StartTimer(90, display);
     matchCountEl.textContent = 0
 }
-function winningGame(){
-    if (matchCountEl == '2')
-        messageEl.textContent= `Congratulations winner! You got all the matches!`
-}
-   
 function shuffleDeck () {
     for (let i = 0; i < deck.length ; i++) {
         let shuffle = Math.floor(Math.random() * (deck.length))
@@ -64,7 +61,6 @@ function StartTimer(duration, display) {
                clearInterval(interval)
                messageEl.textContent= `Times up! You lose! Try again?`
              } 
-        // create function to stop game and invoke in if statement
 
     }, 1000);
 }
@@ -77,11 +73,6 @@ function onClick(event) {
 startButtonEl.addEventListener('click', init)
 
 resetBtnEl.addEventListener('click', init)
-
-matchCountEl.addEventListener('click', (evt) => {
-    if (matchCountEl == 2)
-         return messageEl.textContent= `Winner!`
-})
 
 cardsEl.forEach((card) => {
     card.addEventListener('click', onClick)
@@ -98,6 +89,8 @@ cardsEl.forEach((card) => {
             messageEl.textContent= `You have a match!`
             firstCard = null
             secondCard = null
+        if (matchCountEl.textContent == '8')
+            messageEl.textContent= `Congratulations winner! You got all the matches!`    
         }   else {
             messageEl.textContent= `Not a match, try again!`
             setTimeout(()=> {
@@ -105,23 +98,8 @@ cardsEl.forEach((card) => {
                 secondCard.style.color = 'rgba(0, 0, 0, 0)'
                 firstCard = null
                 secondCard = null
-            }, 200)
-            // messageEl.textContent= `Not a match, try again!`    
+            }, 200)   
         }   
         }})
-
-/*
-function winningGame(){
-    if (matchCountEl.textContent === 2)
-        messageEl.textContent= `Congratulations winner! You got all the matches!`
-}
-
-function winningGame(){
-    if (matchCountEl = parseInt("1")     
-        messageEl.textContent= `Congratulations winner! You got all the matches!`
-})
-
-
-    */
 
 
