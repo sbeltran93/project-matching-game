@@ -4,7 +4,14 @@ const render = () => {
 
 /*---------- Variables (state) ---------*/
 let deck = [
-'1','1','2','2','3','3','4','4','5','5','6','6','7','7','8','8'
+'images/butterfly.jpg','images/butterfly.jpg',
+'images/caterpillar.jpg','images/caterpillar.jpg',
+'images/ladybug.jpg','images/ladybug.jpg',
+'images/leaves.jpg','images/leaves.jpg',
+'images/mushroom.jpg','images/mushroom.jpg',
+'images/rose.jpg','images/rose.jpg',
+'images/sunflower.jpg','images/sunflower.jpg',
+'images/tree.jpg','images/tree.jpg'
 ];
 let cards = [];
 let firstCard = 0;
@@ -44,24 +51,31 @@ function shuffleDeck () {
         deck[shuffle] = temp;  
     } 
         deck.forEach((card, i) => {
-        cardsEl[i].textContent = card;
-        cardsEl[i].style.color = 'rgba(0, 0, 0, 0)'
-    }) 
+            let imgElement = document.createElement('img');
+            imgElement.src = card;
+            imgElement.alt = 'card image';
+            imgElement.style.display = 'none';
+            cardsEl[i].innerHTML = '';
+            cardsEl[i].appendChild(imgElement);            
+      //  cardsEl[i].textContent = card;
+      //  cardsEl[i].style.color = 'rgba(0, 0, 0, 0)'
+    }); 
 };
 
 
 function quickLook() {
     cardsEl.forEach(card => {
-        card.style.color = 'rgba(0, 0, 0, 1)';
+        const img = card.querySelector('img');
+        img.style.display = 'block';
     });
 
     setTimeout(() => {
         cardsEl.forEach(card => {
-            card.style.color = 'rgba(0, 0, 0, 0)';
+            const img = card.querySelector('img');
+            img.style.display = 'none';
         });
-    }, 2000);
+    }, 500);
 }
-
 
 
 function StartTimer(duration, display) {
@@ -102,28 +116,40 @@ cardsEl.forEach((card) => {
     card.addEventListener('click', onClick)
     render()
 });
-    boardEl.addEventListener('click', (evt) => {
-        evt.target.style.color = 'rgba(0, 0, 0, 1)'
-        if (!firstCard && !secondCard) {
-            firstCard = evt.target
-        }   else if (firstCard && !secondCard) {
-            secondCard = evt.target
-        if (firstCard.textContent === secondCard.textContent) {
-            matchCountEl.textContent  ++;
-            messageEl.textContent= `You have a match!`
-            firstCard = null
-            secondCard = null
-        if (matchCountEl.textContent == '8')
-            messageEl.textContent= `Congratulations winner! You got all the matches!`    
-        }   else {
-            messageEl.textContent= `Not a match, try again!`
-            setTimeout(()=> {
-                firstCard.style.color = 'rgba(0, 0, 0, 0)'
-                secondCard.style.color = 'rgba(0, 0, 0, 0)'
-                firstCard = null
-                secondCard = null
-            }, 200)   
-        }   
-        }})
 
+boardEl.addEventListener('click', (evt) => {
+    const clickedCard = evt.target;
+    const img = clickedCard.querySelector('img');
+
+    if (clickedCard.tagName === 'DIV' && img.style.display === 'none') {
+        img.style.display = 'block'; // Reveal the image
+        clickedCard.style.color = 'rgba(0, 0, 0, 0)'; // Optional: hide the text
+    } else if (clickedCard.tagName === 'DIV' && img.style.display === 'block') {
+        img.style.display = 'none'; // Hide the image again if clicked
+        clickedCard.style.color = 'rgba(0, 0, 0, 0)'; // Optional: reset color
+    }
+
+    if (!firstCard && !secondCard) {
+        firstCard = clickedCard;
+    } else if (firstCard && !secondCard) {
+        secondCard = clickedCard;
+        if (firstCard.querySelector('img').src === secondCard.querySelector('img').src) {
+            matchCountEl.textContent++;
+            messageEl.textContent = `You have a match!`;
+            firstCard = null;
+            secondCard = null;
+            if (matchCountEl.textContent == '8') {
+                messageEl.textContent = `Congratulations winner! You got all the matches!`;    
+            }
+        } else {
+            messageEl.textContent = `Not a match, try again!`;
+            setTimeout(() => {
+                firstCard.querySelector('img').style.display = 'none';
+                secondCard.querySelector('img').style.display = 'none';
+                firstCard = null;
+                secondCard = null;
+            }, 200);   
+        }   
+    }
+});
 
