@@ -3,12 +3,15 @@ const render = () => {
 }
 
 /*---------- Variables (state) ---------*/
-let deck = ['1','1','2','2','3','3','4','4','5','5','6','6','7','7','8','8'];
+let deck = [
+'1','1','2','2','3','3','4','4','5','5','6','6','7','7','8','8'
+];
 let cards = [];
 let firstCard = 0;
 let secondCard = 0;
 let matches = 0;
 let winner = "";
+let timerInterval;
 
 /*----- Cached Element References  -----*/
 const boardEl = document.querySelector(".deck");
@@ -28,9 +31,10 @@ const startButtonEl = document.querySelector('#start')
 /*-------------- Functions -------------*/
 function init() {       
 shuffleDeck()
+matchCountEl.textContent = 0
 display = document.querySelector(".time");
     StartTimer(90, display);
-    matchCountEl.textContent = 0
+    quickLook();
 }
 function shuffleDeck () {
     for (let i = 0; i < deck.length ; i++) {
@@ -45,9 +49,29 @@ function shuffleDeck () {
     }) 
 };
 
+
+function quickLook() {
+    cardsEl.forEach(card => {
+        card.style.color = 'rgba(0, 0, 0, 1)';
+    });
+
+    setTimeout(() => {
+        cardsEl.forEach(card => {
+            card.style.color = 'rgba(0, 0, 0, 0)';
+        });
+    }, 2000);
+}
+
+
+
 function StartTimer(duration, display) {
     let timer = duration, minutes, seconds;
-    const interval = setInterval(function(){
+
+    if (timerInterval) {
+        clearInterval(timerInterval);
+    }
+
+    timerInterval = setInterval(function(){
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
 
@@ -58,7 +82,7 @@ function StartTimer(duration, display) {
 
             if(--timer < 0) {
                 timer = duration;
-               clearInterval(interval)
+               clearInterval(timerInterval)
                messageEl.textContent= `Times up! You lose! Try again?`
              } 
 
