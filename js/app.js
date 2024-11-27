@@ -1,6 +1,5 @@
 /*-------------- Constants -------------*/
-const render = () => {
-}
+
 
 /*---------- Variables (state) ---------*/
 let deck = [
@@ -19,6 +18,7 @@ let secondCard = 0;
 let matches = 0;
 let winner = "";
 let timerInterval;
+let matchCount = 0;
 
 /*----- Cached Element References  -----*/
 const boardEl = document.querySelector(".deck");
@@ -36,12 +36,23 @@ let matchCountScore = matchCountEl.textContent;
 const startButtonEl = document.querySelector('#start')
 
 /*-------------- Functions -------------*/
-function init() {       
-shuffleDeck()
-matchCountEl.textContent = 0
-display = document.querySelector(".time");
-    StartTimer(90, display);
-    quickLook();
+
+const preloadImages = (images) => {
+    images.forEach(src => {
+        const img = new Image();
+        img.src = src;
+        // img.loading = "eager"
+    });
+}
+
+
+function init() {  
+    preloadImages(deck);         
+    shuffleDeck()
+    matchCountEl.textContent = 0
+    display = document.querySelector(".time");
+        StartTimer(90, display);
+        quickLook();
 }
 function shuffleDeck () {
     for (let i = 0; i < deck.length ; i++) {
@@ -74,7 +85,7 @@ function quickLook() {
             const img = card.querySelector('img');
             img.style.display = 'none';
         });
-    }, 500);
+    }, 1500);
 }
 
 
@@ -106,7 +117,6 @@ function StartTimer(duration, display) {
 /*----------- Event Listeners ----------*/
 function onClick(event) {
     cardIdx = event.target.id
-    render()
 }
 startButtonEl.addEventListener('click', init)
 
@@ -114,7 +124,6 @@ resetBtnEl.addEventListener('click', init)
 
 cardsEl.forEach((card) => {
     card.addEventListener('click', onClick)
-    render()
 });
 
 boardEl.addEventListener('click', (evt) => {
@@ -139,7 +148,8 @@ boardEl.addEventListener('click', (evt) => {
             firstCard = null;
             secondCard = null;
             if (matchCountEl.textContent == '8') {
-                messageEl.textContent = `Congratulations winner! You got all the matches!`;    
+                messageEl.textContent = `Congratulations winner! You got all the matches!`;
+                clearInterval(timerInterval);  
             }
         } else {
             messageEl.textContent = `Not a match, try again!`;
